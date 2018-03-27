@@ -6,6 +6,10 @@ build_asm() {
     nasm -f bin -o out/$2 src/$1
 }
 
+build_asm_elf() {
+    nasm -f elf -o out/$2 src/$1
+}
+
 build_c() {
     gcc -fno-builtin -m32 -c -I./include -o out/$2 src/$1
 }
