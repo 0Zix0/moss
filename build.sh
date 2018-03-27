@@ -34,13 +34,15 @@ clean() {
 mkdir -p out
 
 build_asm boot.asm boot
+build_asm_elf gdtload.asm gdtload
 
 build_c moss.c moss
 build_c vga.c vga
 build_c ports.c ports
+build_c gdt.c gdt
 
 echo Linking...
-link "moss vga ports" kernel
+link "moss vga ports gdt gdtload" kernel
 
 create_floppy "boot link/kernel" floppy
 
