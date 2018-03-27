@@ -33,9 +33,10 @@ build_asm boot.asm boot
 
 build_c moss.c moss
 build_c vga.c vga
+build_c ports.c ports
 
 echo Linking...
-link "moss vga" kernel
+link "moss vga ports" kernel
 
 create_floppy "boot link/kernel" floppy
 

@@ -49,9 +49,40 @@ void puts(char* str)
         putc(str[i]);
         ++i;
     }
+    set_cursor_pos(cursor_x, cursor_y);
 }
 
 void set_color(uint8_t fg, uint8_t bg)
 {
     color = (bg << 4) | (fg & 0x0F);
+}
+
+void enable_cursor_size(uint8_t start, uint8_t end)
+{
+    out8(0x3D4, 0x0A);
+	out8(0x3D5, (in8(0x3D5) & 0xC0) | start);
+ 
+	out8(0x3D4, 0x0B);
+	out8(0x3D5, (in8(0x3E0) & 0xE0) | end);
+}
+
+void enable_cursor()
+{
+    enable_cursor_size(14, 15);
+}
+
+void disable_cursor()
+{
+    out8(0x3D4, 0x0A);
+    out8(0x3D5, 0x20);
+}
+
+void set_cursor_pos(int x, int y)
+{
+    uint16_t pos = y * VRAM_WIDTH + x;
+ 
+    out8(0x3D4, 0x0F);
+	out8(0x3D5, (uint8_t) (pos & 0xFF));
+	out8(0x3D4, 0x0E);
+	out8(0x3D5, (uint8_t) ((pos >> 8) & 0xFF));
 }

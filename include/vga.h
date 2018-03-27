@@ -2,6 +2,7 @@
 #define _VGA_H
 
 #include <moss.h>
+#include <ports.h>
 
 #define VGA_BLACK           0x00
 #define VGA_BLUE            0x01
@@ -25,5 +26,10 @@ void cls();
 void putc(char c);
 void puts(char* str);
 void set_color(uint8_t fg, uint8_t bg);
+
+void enable_cursor_size(uint8_t start, uint8_t end);
+void enable_cursor();
+void disable_cursor();
+void set_cursor_pos(int x, int y);
 
 #endif
