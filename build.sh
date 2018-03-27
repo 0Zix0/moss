@@ -7,13 +7,13 @@ build_asm() {
 }
 
 build_c() {
-    gcc -c -I./include -o out/$2 src/$1
+    gcc -m32 -c -I./include -o out/$2 src/$1
 }
 
 link() {
     cd out
     mkdir -p link
-    ld --oformat binary -Ttext 1000 $1 -o link/$2
+    ld --oformat binary -m elf_i386 -Ttext 1000 $1 -o link/$2
     cd ..
 }
 
@@ -32,10 +32,9 @@ mkdir -p out
 build_asm boot.asm boot
 
 build_c moss.c moss
-build_c vga.c vga
 
 echo Linking...
-link "moss vga" kernel
+link "moss" kernel
 
 create_floppy "boot link/kernel" floppy
 
