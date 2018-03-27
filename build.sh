@@ -6,6 +6,17 @@ build_asm() {
     nasm -f bin -o out/$2 src/$1
 }
 
+build_c() {
+    gcc -c -I./include -o out/$2 src/$1
+}
+
+link() {
+    cd out
+    mkdir -p link
+    ld --oformat binary -Ttext 1000 $1 -o link/$2
+    cd ..
+}
+
 create_floppy() {
     cd out
     cat $1 /dev/zero | dd of=../$2 bs=512 count=2880c
@@ -19,9 +30,14 @@ clean() {
 mkdir -p out
 
 build_asm boot.asm boot
-build_asm kernel.asm kernel
 
-create_floppy "boot kernel" floppy
+build_c moss.c moss
+build_c vga.c vga
+
+echo Linking...
+link "moss vga" kernel
+
+create_floppy "boot link/kernel" floppy
 
 clean
 
