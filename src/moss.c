@@ -2,6 +2,7 @@
 #include <vga.h>
 #include <gdt.h>
 #include <idt.h>
+#include <isrs.h>
 
 void _start() 
 {
@@ -10,6 +11,7 @@ void _start()
     
     init_gdt();
     init_idt();
+    init_isrs();
 
     puts("Welcome to ");
     set_color(VGA_GREEN, VGA_BLACK);
@@ -18,6 +20,11 @@ void _start()
     puts(".\n");
 
     puts("Hello world.\n");
+
+    // Trigger divide by 0.
+    int a = 10;
+    int b = 0;
+    int c = a / b;
 
     for(;;);
 }
