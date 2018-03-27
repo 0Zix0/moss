@@ -1,6 +1,7 @@
 #include <moss.h>
 #include <vga.h>
 #include <gdt.h>
+#include <idt.h>
 
 void _start() 
 {
@@ -8,6 +9,7 @@ void _start()
     disable_cursor();
     
     init_gdt();
+    init_idt();
 
     puts("Welcome to ");
     set_color(VGA_GREEN, VGA_BLACK);

@@ -35,14 +35,16 @@ mkdir -p out
 
 build_asm boot.asm boot
 build_asm_elf gdtload.asm gdtload
+build_asm_elf idtload.asm idtload
 
 build_c moss.c moss
 build_c vga.c vga
 build_c ports.c ports
 build_c gdt.c gdt
+build_c idt.c idt
 
 echo Linking...
-link "moss vga ports gdt gdtload" kernel
+link "moss vga ports gdt gdtload idt idtload" kernel
 
 create_floppy "boot link/kernel" floppy
 
