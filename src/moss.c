@@ -1,14 +1,17 @@
 #include <moss.h>
+#include <vga.h>
 
 void _start() 
 {
-    uint16_t* video = (uint16_t*)0xB8000;
-    char* str = "Hello world.";
+    init_vga();
 
-    for(int i = 0; i < 5; i++)
-    {
-        video[i] = (str[i] | (0x0F << 8));
-    }
+    puts("Hello world.\n");
+    puts("Welcome to ");
+
+    set_color(VGA_GREEN, VGA_BLACK);
+    puts("Moss");
+    set_color(VGA_WHITE, VGA_BLACK);
+    puts(".\n");
 
     for(;;);
 }
