@@ -7,6 +7,7 @@
 #include <timer.h>
 #include <keyboard.h>
 #include <memory.h>
+#include <pci.h>
 
 extern uint32_t kernel_end;
 extern uint32_t kernel_base;
@@ -42,19 +43,22 @@ void kmain()
 
     init_paging();
 
+    init_pci();
+
     puts("Welcome to ");
     set_color(VGA_GREEN, VGA_BLACK);
     puts("Moss");
     set_color(VGA_WHITE, VGA_BLACK);
     puts(".\n");
 
+    // Trigger a page fault.
     //uint32_t *ptr = (uint32_t *)0xA0000000;
     //uint32_t pf = *ptr;
 
     // Trigger divide by 0.
-    int a = 10;
-    int b = 0;
-    int c = a / b;
+    //int a = 10;
+    //int b = 0;
+    //int c = a / b;
 
     for(;;);
 }

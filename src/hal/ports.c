@@ -14,6 +14,13 @@ uint16_t in16(int port)
 	return result;
 }
 
+uint32_t in32(int port)
+{
+	uint32_t result;
+	asm volatile ("inl %%dx, %%eax" : "=a" (result) : "dN" (port));
+	return result;
+}
+
 void out8(int port, uint8_t val)
 {
     asm("outb %b0, %w1" : : "a" (val), "Nd" (port) );
@@ -22,4 +29,9 @@ void out8(int port, uint8_t val)
 void out16(int port, uint16_t val)
 {
     asm("outw %w0, %w1" : : "a" (val), "Nd" (port) );
+}
+
+void out32(int port, uint32_t val)
+{
+	asm volatile ("outl %%eax, %%dx" : : "dN" (port), "a" (val));
 }
