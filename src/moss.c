@@ -19,7 +19,7 @@ void kmain()
     printf("Kernel base: %x\n", &kernel_base);
     printf("Kernel end: %x\n", &kernel_end);
 
-    init_memory(&kernel_end);
+    init_memory((uint32_t)&kernel_end);
 
     init_gdt();
     init_idt();
@@ -47,6 +47,9 @@ void kmain()
     puts("Moss");
     set_color(VGA_WHITE, VGA_BLACK);
     puts(".\n");
+
+    uint32_t *ptr = (uint32_t *)0xA0000000;
+    uint32_t pf = *ptr;
 
     // Trigger divide by 0.
     //int a = 10;

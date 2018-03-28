@@ -36,37 +36,37 @@ extern void _isr31();
 void init_isrs()
 {
     set_idt_entry(0, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(1, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(2, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(3, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(4, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(5, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(6, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(7, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(8, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(9, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(10, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(11, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(12, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(13, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(14, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(15, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(16, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(17, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(18, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(19, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(20, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(21, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(22, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(23, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(24, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(25, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(26, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(27, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(28, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(29, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(30, (unsigned)_isr0, 0x08, 0x8E);
-    set_idt_entry(31, (unsigned)_isr0, 0x08, 0x8E);
+    set_idt_entry(1, (unsigned)_isr1, 0x08, 0x8E);
+    set_idt_entry(2, (unsigned)_isr2, 0x08, 0x8E);
+    set_idt_entry(3, (unsigned)_isr3, 0x08, 0x8E);
+    set_idt_entry(4, (unsigned)_isr4, 0x08, 0x8E);
+    set_idt_entry(5, (unsigned)_isr5, 0x08, 0x8E);
+    set_idt_entry(6, (unsigned)_isr6, 0x08, 0x8E);
+    set_idt_entry(7, (unsigned)_isr7, 0x08, 0x8E);
+    set_idt_entry(8, (unsigned)_isr8, 0x08, 0x8E);
+    set_idt_entry(9, (unsigned)_isr9, 0x08, 0x8E);
+    set_idt_entry(10, (unsigned)_isr10, 0x08, 0x8E);
+    set_idt_entry(11, (unsigned)_isr11, 0x08, 0x8E);
+    set_idt_entry(12, (unsigned)_isr12, 0x08, 0x8E);
+    set_idt_entry(13, (unsigned)_isr13, 0x08, 0x8E);
+    set_idt_entry(14, (unsigned)_isr14, 0x08, 0x8E);
+    set_idt_entry(15, (unsigned)_isr15, 0x08, 0x8E);
+    set_idt_entry(16, (unsigned)_isr16, 0x08, 0x8E);
+    set_idt_entry(17, (unsigned)_isr17, 0x08, 0x8E);
+    set_idt_entry(18, (unsigned)_isr18, 0x08, 0x8E);
+    set_idt_entry(19, (unsigned)_isr19, 0x08, 0x8E);
+    set_idt_entry(20, (unsigned)_isr20, 0x08, 0x8E);
+    set_idt_entry(21, (unsigned)_isr21, 0x08, 0x8E);
+    set_idt_entry(22, (unsigned)_isr22, 0x08, 0x8E);
+    set_idt_entry(23, (unsigned)_isr23, 0x08, 0x8E);
+    set_idt_entry(24, (unsigned)_isr24, 0x08, 0x8E);
+    set_idt_entry(25, (unsigned)_isr25, 0x08, 0x8E);
+    set_idt_entry(26, (unsigned)_isr26, 0x08, 0x8E);
+    set_idt_entry(27, (unsigned)_isr27, 0x08, 0x8E);
+    set_idt_entry(28, (unsigned)_isr28, 0x08, 0x8E);
+    set_idt_entry(29, (unsigned)_isr29, 0x08, 0x8E);
+    set_idt_entry(30, (unsigned)_isr30, 0x08, 0x8E);
+    set_idt_entry(31, (unsigned)_isr31, 0x08, 0x8E);
 }
 
 void fault_handler(struct registers_t* r)
@@ -74,11 +74,16 @@ void fault_handler(struct registers_t* r)
     if(r->int_no < 32) 
     {
         set_color(VGA_LIGHT_RED, VGA_BLACK);
-        puts("Exception, system halted.");
+        printf("Exception %d, system halted.", r->int_no);
         if(r->int_no == 0)
         {
             set_color(VGA_LIGHT_GRAY, VGA_BLACK);
             puts(" [Divide by zero]\n");
+        }
+        if(r->int_no == 14)
+        {
+            set_color(VGA_LIGHT_GRAY, VGA_BLACK);
+            puts(" [Page fault]\n");
         }
         set_color(VGA_WHITE, VGA_BLACK);
         while(1);

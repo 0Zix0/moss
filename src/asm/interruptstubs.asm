@@ -8,6 +8,7 @@ _isr%1:
 %endmacro
 
 %macro isr_error 1
+global _isr%1
 _isr%1:
     cli
     push byte %1
