@@ -11,12 +11,11 @@ void _start()
 {
     init_vga();
     disable_cursor();
-    
+
     init_gdt();
     init_idt();
     init_isrs();
     init_irq();
-    __asm__ __volatile__("sti");
     init_timer();
     init_keyboard();
 

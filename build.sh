@@ -42,6 +42,7 @@ build_asm_elf asm/irqstubs.asm irqstubs
 build_c moss.c moss
 
 build_c drivers/vga.c vga
+build_c drivers/printf.c printf
 build_c drivers/gdt.c gdt
 build_c drivers/idt.c idt
 build_c drivers/isrs.c isrs
@@ -54,7 +55,7 @@ build_c hal/ports.c ports
 build_c util/string.c string
 
 echo Linking...
-link "moss string vga ports gdt gdtload idt idtload isrs isrstubs irq irqstubs timer keyboard" kernel
+link "moss string vga printf ports gdt gdtload idt idtload isrs isrstubs irq irqstubs timer keyboard" kernel
 
 create_floppy "boot link/kernel" floppy
 

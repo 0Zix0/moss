@@ -60,6 +60,7 @@ void init_irq()
     set_idt_entry(45, (unsigned)_irq13, 0x08, 0x8E);
     set_idt_entry(46, (unsigned)_irq14, 0x08, 0x8E);
     set_idt_entry(47, (unsigned)_irq15, 0x08, 0x8E);
+    __asm__ __volatile__("sti");
 }
 
 void irq_hook(struct registers_t* r)
