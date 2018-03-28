@@ -51,13 +51,14 @@ build_c drivers/irq.c irq
 build_c drivers/timer.c timer
 build_c drivers/keyboard.c keyboard
 build_c drivers/paging.c paging
+build_c drivers/malloc.c malloc
 
 build_c hal/ports.c ports
 
 build_c util/string.c string
 
 echo Linking...
-link "moss string vga printf ports gdt gdtload idt idtload isrs isrstubs irq irqstubs timer keyboard paging" kernel
+link "moss string vga printf ports gdt gdtload idt idtload isrs isrstubs irq irqstubs timer keyboard paging malloc" kernel
 
 create_floppy "boot link/kernel" floppy
 

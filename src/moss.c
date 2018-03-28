@@ -19,12 +19,26 @@ void kmain()
     printf("Kernel base: %x\n", &kernel_base);
     printf("Kernel end: %x\n", &kernel_end);
 
+    init_memory(&kernel_end);
+
     init_gdt();
     init_idt();
     init_isrs();
     init_irq();
     init_timer();
     init_keyboard();
+
+    char* str = malloc(6);
+    str[0] = 0x48;
+    str[1] = 0x65;
+    str[2] = 0x6c;
+    str[3] = 0x6c;
+    str[4] = 0x6f;
+    str[5] = '\0';
+    printf("%s\n", str);
+    free(str);
+    char* str2 = malloc(6);
+    printf("%s\n", str2);
 
     init_paging();
 
