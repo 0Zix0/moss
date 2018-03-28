@@ -62,7 +62,7 @@ build_c util/random.c random
 echo Linking...
 link "moss string random vga printf ports gdt gdtload idt idtload isrs isrstubs irq irqstubs timer keyboard paging malloc pci" kernel
 
-create_floppy "boot link/kernel" floppy
+create_floppy "boot link/kernel" floppy.img
 
 clean
 
