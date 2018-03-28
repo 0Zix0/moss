@@ -15,9 +15,10 @@ build_c() {
 }
 
 link() {
+    cp linker.ld out
     cd out
     mkdir -p link
-    ld --oformat binary -m elf_i386 -Ttext 1000 $1 -o link/$2
+    ld -T linker.ld --oformat binary -m elf_i386 -Ttext 1000 $1 -o link/$2
     cd ..
 }
 
@@ -49,13 +50,14 @@ build_c drivers/isrs.c isrs
 build_c drivers/irq.c irq
 build_c drivers/timer.c timer
 build_c drivers/keyboard.c keyboard
+build_c drivers/paging.c paging
 
 build_c hal/ports.c ports
 
 build_c util/string.c string
 
 echo Linking...
-link "moss string vga printf ports gdt gdtload idt idtload isrs isrstubs irq irqstubs timer keyboard" kernel
+link "moss string vga printf ports gdt gdtload idt idtload isrs isrstubs irq irqstubs timer keyboard paging" kernel
 
 create_floppy "boot link/kernel" floppy
 
