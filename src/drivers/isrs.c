@@ -69,23 +69,142 @@ void init_isrs()
     set_idt_entry(31, (unsigned)_isr31, 0x08, 0x8E);
 }
 
+char* exceptions[32] = {
+    "DIVIDE BY ZERO",
+    "DEBUG",
+    "NON-MASKABLE INTERRUPT",
+    "BREAKPOINT",
+    "OVERFLOW",
+    "BOUND RANGE EXCEEDED",
+    "INVALID OPCODE",
+    "DEVICE NOT AVAILABLE",
+    "DOUBLE FAULT",
+    "COPROCESSOR SEGMENT OVERRUN",
+    "INVALID TSS",
+    "SEGMENT NOT PRESENT",
+    "STACK-SEGMENT FAULT",
+    "GENERAL PROTECTION FAULT",
+    "PAGE FAULT",
+    "RESERVED",
+    "FLOATING-POINT EXCEPTION (x87)",
+    "ALIGNMENT CHECK",
+    "FLOATING-POINT EXCEPTION (SIMD)",
+    "VIRTUALIZATION EXCEPTION",
+    "RESERVED",
+    "SECURITY EXCEPTION",
+    "RESERVED"
+};
+
 void fault_handler(struct registers_t* r)
 {
     if(r->int_no < 32) 
     {
+        cls();
+        int len = strlen(exceptions[r->int_no]);
+        len += 2;
+        int xPos = 40 - (len / 2);
+        set_cursor_pos(xPos, 1);
+        set_color(VGA_DARK_GRAY, VGA_BLACK);
+        printf("[");
         set_color(VGA_LIGHT_RED, VGA_BLACK);
-        printf("Exception %d, system halted.", r->int_no);
-        if(r->int_no == 0)
-        {
-            set_color(VGA_LIGHT_GRAY, VGA_BLACK);
-            puts(" [Divide by zero]\n");
-        }
-        if(r->int_no == 14)
-        {
-            set_color(VGA_LIGHT_GRAY, VGA_BLACK);
-            puts(" [Page fault]\n");
-        }
+        printf("%s", exceptions[r->int_no]);
+        set_color(VGA_DARK_GRAY, VGA_BLACK);
+        printf("]\n");
+
+        char* msg1 = "THE OPERATING SYSTEM HAS ENCOUNTERED A FATAL ERROR";
+        char* msg2 = "FROM WHICH IT CAN NOT RECOVER. IF YOU ARE NOT AT";
+        char* msg3 = "FAULT, CONTACT A DEVELOPER.";
+
+        int msg1X = 40 - (strlen(msg1) / 2);
+        int msg2X = 40 - (strlen(msg2) / 2);
+        int msg3X = 40 - (strlen(msg3) / 2);
+
         set_color(VGA_WHITE, VGA_BLACK);
+        set_cursor_pos(msg1X, 3);
+        printf("%s", msg1);
+        set_cursor_pos(msg2X, 4);
+        printf("%s", msg2);
+        set_cursor_pos(msg3X, 5);
+        printf("%s", msg3);
+        putc('\n');
+
+        set_cursor_pos(27, 7);
+        printf("gs:  %x fs:  %x\n", r->gs, r->fs);
+        set_cursor_pos(27, 8);
+        printf("es:  %x ds:  %x\n", r->es, r->ds);
+        set_cursor_pos(27, 9);
+        printf("edi: %x esi: %x\n", r->edi, r->esi);
+        set_cursor_pos(27, 10);
+        printf("ebp: %x esp: %x\n", r->ebp, r->esp);
+        set_cursor_pos(27, 11);
+        printf("ecx: %x eax: %x\n", r->ecx, r->eax);
+        set_cursor_pos(34, 12);
+        printf("eip: %x\n", r->eip);
+        set_cursor_pos(34, 13);
+        printf("cs:  %x\n", r->cs);
+        set_cursor_pos(34, 14);
+        printf("ss:  %x\n", r->ss);
+        set_cursor_pos(32, 15);
+        printf("eflags:  %x\n", r->eflags);
+        set_cursor_pos(32, 16);
+        printf("useresp: %x\n", r->useresp);
+
+        // RAND_MAX = 32767
+        char* characters = "$#Ss*:.";
+        int intensities[7] = {
+            32767 * 0.9f,
+            32767 * 0.8f,
+            32767 * 0.75f,
+            32767 * 0.5f,
+            32767 * 0.25f,
+            32767 * 0.18f,
+            32767 * 0.1f
+        };
+        uint8_t colors[7] = {
+            VGA_RED,
+            VGA_RED,
+            VGA_RED,
+            VGA_LIGHT_RED,
+            VGA_LIGHT_RED,
+            VGA_LIGHT_RED,
+            VGA_WHITE
+        };
+
+        while(1)
+        {
+            for(int i = 0; i < 7; i++)
+            {
+                char* line = "                                                                                ";
+                for(int j = 0; j < 80; j++)
+                {
+                    int r = rand();
+                    if(r < intensities[i]) {
+                        line[j] = characters[i];
+                    } else {
+                        line[j] = ' ';
+                    }
+                }
+                set_cursor_pos(0, 24 - i);
+                for(int j = 0; j < 80; j++)
+                {
+                    set_color(colors[i], VGA_BLACK);
+                    if(i == 2)
+                    {
+                        int r = rand();
+                        if(r < RAND_MAX / 2)
+                        {
+                            set_color(VGA_LIGHT_RED, VGA_BLACK);
+                        }
+                    }
+                    putc(line[j]);
+                }
+            }
+        }
+
+        //printf("Exception %d, system halted.", r->int_no);
+        //set_color(VGA_LIGHT_GRAY, VGA_BLACK);
+        //printf(" [%s]\n", exceptions[r->int_no]);
+        //set_color(VGA_WHITE, VGA_BLACK);
         while(1);
     }
 }

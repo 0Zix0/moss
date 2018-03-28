@@ -48,13 +48,13 @@ void kmain()
     set_color(VGA_WHITE, VGA_BLACK);
     puts(".\n");
 
-    uint32_t *ptr = (uint32_t *)0xA0000000;
-    uint32_t pf = *ptr;
+    //uint32_t *ptr = (uint32_t *)0xA0000000;
+    //uint32_t pf = *ptr;
 
     // Trigger divide by 0.
-    //int a = 10;
-    //int b = 0;
-    //int c = a / b;
+    int a = 10;
+    int b = 0;
+    int c = a / b;
 
     for(;;);
 }

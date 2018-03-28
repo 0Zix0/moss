@@ -11,7 +11,7 @@ build_asm_elf() {
 }
 
 build_c() {
-    gcc -fno-builtin -m32 -c -I./include -o out/$2 src/$1
+    gcc -fno-builtin -fno-stack-protector -m32 -c -I./include -o out/$2 src/$1
 }
 
 link() {
@@ -56,9 +56,10 @@ build_c drivers/malloc.c malloc
 build_c hal/ports.c ports
 
 build_c util/string.c string
+build_c util/random.c random
 
 echo Linking...
-link "moss string vga printf ports gdt gdtload idt idtload isrs isrstubs irq irqstubs timer keyboard paging malloc" kernel
+link "moss string random vga printf ports gdt gdtload idt idtload isrs isrstubs irq irqstubs timer keyboard paging malloc" kernel
 
 create_floppy "boot link/kernel" floppy
 

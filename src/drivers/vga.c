@@ -85,4 +85,7 @@ void set_cursor_pos(int x, int y)
 	out8(0x3D5, (uint8_t) (pos & 0xFF));
 	out8(0x3D4, 0x0E);
 	out8(0x3D5, (uint8_t) ((pos >> 8) & 0xFF));
+
+    cursor_x = x;
+    cursor_y = y;
 }

@@ -14,3 +14,13 @@ void* memcpy(void* restrict dstptr, const void* restrict srcptr, size_t size) {
 		dst[i] = src[i];
 	return dstptr;
 }
+
+int strlen(char* str)
+{
+	int i = 0;
+	while(str[i] != '\0')
+	{
+		i++;
+	}
+	return i;
+}
