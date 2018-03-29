@@ -170,41 +170,42 @@ void fault_handler(struct registers_t* r)
             VGA_WHITE
         };
 
+        int tick = 0;
         while(1)
         {
-            for(int i = 0; i < 7; i++)
+            if(tick % 6562500 == 0)
             {
-                char* line = "                                                                                ";
-                for(int j = 0; j < 80; j++)
+                for(int i = 0; i < 7; i++)
                 {
-                    int r = rand();
-                    if(r < intensities[i]) {
-                        line[j] = characters[i];
-                    } else {
-                        line[j] = ' ';
-                    }
-                }
-                set_cursor_pos(0, 24 - i);
-                for(int j = 0; j < 80; j++)
-                {
-                    set_color(colors[i], VGA_BLACK);
-                    if(i == 2)
+                    char* line = "                                                                                ";
+                    for(int j = 0; j < 80; j++)
                     {
                         int r = rand();
-                        if(r < RAND_MAX / 2)
-                        {
-                            set_color(VGA_LIGHT_RED, VGA_BLACK);
+                        if(r < intensities[i]) {
+                            line[j] = characters[i];
+                        } else {
+                            line[j] = ' ';
                         }
                     }
-                    putc(line[j]);
+                    set_cursor_pos(0, 24 - i);
+                    for(int j = 0; j < 80; j++)
+                    {
+                        set_color(colors[i], VGA_BLACK);
+                        if(i == 2)
+                        {
+                            int r = rand();
+                            if(r < RAND_MAX / 2)
+                            {
+                                set_color(VGA_LIGHT_RED, VGA_BLACK);
+                            }
+                        }
+                        putc(line[j]);
+                    }
                 }
             }
+            tick++;
         }
 
-        //printf("Exception %d, system halted.", r->int_no);
-        //set_color(VGA_LIGHT_GRAY, VGA_BLACK);
-        //printf(" [%s]\n", exceptions[r->int_no]);
-        //set_color(VGA_WHITE, VGA_BLACK);
         while(1);
     }
 }

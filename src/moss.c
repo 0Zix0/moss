@@ -52,8 +52,8 @@ void kmain()
     puts(".\n");
 
     // Trigger a page fault.
-    //uint32_t *ptr = (uint32_t *)0xA0000000;
-    //uint32_t pf = *ptr;
+    uint32_t *ptr = (uint32_t *)0xA0000000;
+    uint32_t pf = *ptr;
 
     // Trigger divide by 0.
     //int a = 10;
