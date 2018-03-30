@@ -8,7 +8,7 @@
 #include <keyboard.h>
 #include <memory.h>
 #include <pci.h>
-#include <crash.h>
+#include <assert.h>
 
 extern uint32_t kernel_end;
 extern uint32_t kernel_base;
@@ -56,7 +56,6 @@ void kmain()
     //uint32_t *ptr = (uint32_t *)0xA0000000;
     //uint32_t pf = *ptr;
 
-    assert(1 == 1);
     assert(1 == 2);
 
     // Trigger divide by 0.

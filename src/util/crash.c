@@ -1,12 +1,5 @@
 #include <crash.h>
 
-void assert_failed(char* file, int line, char* expr)
-{
-    cls();
-    printf("Assetion failed [%s] at %s, line %d\n", expr, file, line);
-    while(1);
-}
-
 void system_exception(char* msg, struct registers_t* r)
 {
     cls();
