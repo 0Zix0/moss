@@ -4,8 +4,7 @@
 #include <moss.h>
 #include <idt.h>
 #include <vga.h>
-#include <string.h>
-#include <random.h>
+#include <crash.h>
 
 void init_isrs();
 

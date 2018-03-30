@@ -57,10 +57,11 @@ build_c drivers/pci.c pci
 build_c hal/ports.c ports
 
 build_c util/string.c string
+build_c util/crash.c crash
 build_c util/random.c random
 
 echo Linking...
-link "moss string random vga printf ports gdt gdtload idt idtload isrs isrstubs irq irqstubs timer keyboard paging malloc pci" kernel
+link "moss string crash random vga printf ports gdt gdtload idt idtload isrs isrstubs irq irqstubs timer keyboard paging malloc pci" kernel
 
 create_floppy "boot link/kernel" floppy.img
 

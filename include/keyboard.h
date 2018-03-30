@@ -5,6 +5,8 @@
 #include <irq.h>
 #include <vga.h>
 
+unsigned char kbdus[128];
+
 void init_keyboard();
 
 #endif
