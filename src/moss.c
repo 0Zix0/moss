@@ -38,9 +38,9 @@ void kmain()
     str[4] = 0x6f;
     str[5] = '\0';
     printf("%s\n", str);
-    free(str);
+    //free(str);
     char* str2 = malloc(6);
-    printf("%s\n", str2);
+    printf("%s | %s\n", str2, str);
 
     init_paging();
 
@@ -56,12 +56,13 @@ void kmain()
     //uint32_t *ptr = (uint32_t *)0xA0000000;
     //uint32_t pf = *ptr;
 
-    assert(1 == 2);
+    // Trigger an assertion error.
+    // assert(1 == 2);
 
     // Trigger divide by 0.
-    int a = 10;
-    int b = 0;
-    int c = a / b;
+    // int a = 10;
+    // int b = 0;
+    // int c = a / b;
 
     for(;;);
 }

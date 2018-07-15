@@ -17,7 +17,7 @@ void init_memory(uint32_t kernel_end)
 
 char* malloc(size_t size)
 {
-if(!size) return 0;
+	if(!size) return 0;
 
 	/* Loop through blocks and find a block sized the same or bigger */
 	uint8_t *mem = (uint8_t *)heap_begin;

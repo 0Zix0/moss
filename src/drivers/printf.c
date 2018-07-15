@@ -36,9 +36,9 @@ parse_num(
  */
 static void
 parse_hex(
-		unsigned int value
+		unsigned int value,
+		int i
 		) {
-	int i = 8;
 	while (i-- > 0) {
 		buf[ptr++] = "0123456789abcdef"[(value>>(i*4))&0xF];
 	}
@@ -86,7 +86,10 @@ printf(
 				buf[ptr++] = (char)args_next(args, int);
 				break;
 			case 'x':
-				parse_hex((unsigned long)args_next(args, unsigned long));
+				parse_hex((unsigned long)args_next(args, unsigned long), 8);
+				break;
+			case 'o':
+				parse_hex((unsigned long)args_next(args, unsigned long), 4);
 				break;
 			case 'd':
 				parse_num((unsigned long)args_next(args, unsigned long), 10);
