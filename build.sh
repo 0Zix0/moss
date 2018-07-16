@@ -55,6 +55,7 @@ build_c drivers/keyboard.c keyboard
 build_c drivers/paging.c paging
 build_c drivers/malloc.c malloc
 build_c drivers/pci.c pci
+build_c drivers/acpi.c acpi
 
 build_c hal/ports.c ports
 
@@ -68,7 +69,7 @@ echo Linking...
 
 link "moss string crash random vga printf ports gdt gdtload idt 
 idtload isrs isrstubs irq irqstubs timer keyboard paging malloc 
-pci assert" kernel
+pci acpi assert" kernel
 
 echo Creating floppy image...
 

@@ -8,6 +8,7 @@
 #include <keyboard.h>
 #include <memory.h>
 #include <pci.h>
+#include <acpi.h>
 #include <assert.h>
 
 extern uint32_t kernel_end;
@@ -43,6 +44,9 @@ void kmain()
     printf("%s | %s\n", str2, str);
 
     init_paging();
+
+    printf("Searching for ACPI signature.\n");
+    init_acpi();
 
     init_pci();
     pci_print_devices();
