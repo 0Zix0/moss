@@ -53,8 +53,8 @@ void kmain()
     puts(".\n");
 
     // Trigger a page fault.
-    //uint32_t *ptr = (uint32_t *)0xA0000000;
-    //uint32_t pf = *ptr;
+    // uint32_t *ptr = (uint32_t *)0xA0000000;
+    // uint32_t pf = *ptr;
 
     // Trigger an assertion error.
     // assert(1 == 2);

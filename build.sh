@@ -34,6 +34,8 @@ clean() {
 
 mkdir -p out
 
+echo Compiling...
+
 build_asm asm/boot.asm boot
 build_asm_elf asm/gdtload.asm gdtload
 build_asm_elf asm/idtload.asm idtload
@@ -63,9 +65,12 @@ build_c util/crash.c crash
 build_c util/random.c random
 
 echo Linking...
+
 link "moss string crash random vga printf ports gdt gdtload idt 
 idtload isrs isrstubs irq irqstubs timer keyboard paging malloc 
 pci assert" kernel
+
+echo Creating floppy image...
 
 create_floppy "boot link/kernel" floppy.img
 
