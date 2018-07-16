@@ -1,5 +1,14 @@
 #include <pci.h>
 
+struct pci_device_t **pci_devices = 0;
+uint32_t pci_device_count = 0;
+
+void pci_add_device(struct pci_device_t* device)
+{
+    pci_devices[pci_device_count] = device;
+    pci_device_count++;
+}
+
 char* pci_classify_base_class(uint8_t c)
 {
     if(c == 0x00) return "Unclassified";
@@ -54,9 +63,24 @@ void init_pci()
                 if(vendor == 0xFFFF) continue;
                 uint16_t device = pci_read16(bus, slot, function, 2);
                 uint16_t classCode = pci_read16(bus, slot, function, 0x0A);
-                char* className = pci_classify_base_class((classCode & 0xFF00) >> 8);
-                printf("V: %o D: %o CC: %o C: %s\n", vendor, device, classCode, className);
+
+                struct pci_device_t* pdev = (struct pci_device_t*) malloc(sizeof(struct pci_device_t));
+                pdev->vendor = vendor;
+                pdev->device = device;
+                pdev->classCode = classCode;
+                pci_add_device(pdev);
             }
         }
+    }
+}
+
+void pci_print_devices()
+{
+    for(int i = 0; i < pci_device_count; i++) 
+    {
+        struct pci_device_t* pdev = pci_devices[i];
+        
+        char* className = pci_classify_base_class((pdev->classCode & 0xFF00) >> 8);
+        printf("V: %o D: %o CC: %o C: %s\n", pdev->vendor, pdev->device, pdev->classCode, className);
     }
 }

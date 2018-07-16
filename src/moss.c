@@ -45,6 +45,7 @@ void kmain()
     init_paging();
 
     init_pci();
+    pci_print_devices();
 
     puts("Welcome to ");
     set_color(VGA_GREEN, VGA_BLACK);
