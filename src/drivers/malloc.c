@@ -45,7 +45,7 @@ char* malloc(size_t size)
 			/* Set to allocated */
 			a->status = 1;
 
-			printf("RE:Allocated %d bytes from 0x%x to 0x%x\n", size, mem + sizeof(struct alloc_t), mem + sizeof(struct alloc_t) + size);
+			//printf("RE:Allocated %d bytes from 0x%x to 0x%x\n", size, mem + sizeof(struct alloc_t), mem + sizeof(struct alloc_t) + size);
 			memset(mem + sizeof(struct alloc_t), 0, size);
 			memory_used += size + sizeof(struct alloc_t);
 			return (char *)(mem + sizeof(struct alloc_t));
@@ -71,7 +71,7 @@ char* malloc(size_t size)
 	last_alloc += size;
 	last_alloc += sizeof(struct alloc_t);
 	last_alloc += 4;
-	printf("Allocated %d bytes from 0x%x to 0x%x\n", size, (uint32_t)alloc + sizeof(struct alloc_t), last_alloc);
+	//printf("Allocated %d bytes from 0x%x to 0x%x\n", size, (uint32_t)alloc + sizeof(struct alloc_t), last_alloc);
 	memory_used += size + 4 + sizeof(struct alloc_t);
 	memset((char *)((uint32_t)alloc + sizeof(struct alloc_t)), 0, size);
     return (char *)((uint32_t)alloc + sizeof(struct alloc_t));

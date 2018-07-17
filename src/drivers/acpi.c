@@ -4,9 +4,11 @@
 // https://wiki.osdev.org/Device_Management
 // https://github.com/pdoane/osdev/blob/master/acpi/acpi.c
 
-void acpi_parse(uint8_t* p)
+void acpi_parse_rsdp(uint8_t* p)
 {
     struct rsdp_descriptor_t* rsdp = (struct rsdp_descriptor_t*)p;
+
+    // TODO: Verify checksum
 
     printf("RSDP Info:\n");
     printf("  Sig:       %c%c%c%c%c%c%c%c\n", rsdp->signature[0], 
@@ -58,8 +60,8 @@ void init_acpi()
     while(p < end) {
         uint64_t sig = *(uint64_t*)p;
         if(sig == 0x2052545020445352) {
-            // Found it.
-            acpi_parse(p);
+            // Found it, probably.
+            acpi_parse_rsdp(p);
         }
         // Signature is on a 16 byte boundary, so incremement by 16.
         p += 16;

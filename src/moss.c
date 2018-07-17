@@ -14,6 +14,8 @@
 extern uint32_t kernel_end;
 extern uint32_t kernel_base;
 
+void test_keyboard();
+
 void kmain() 
 {
     init_vga();
@@ -30,6 +32,7 @@ void kmain()
     init_irq();
     init_timer();
     init_keyboard();
+    keyboard_add_handler(0, test_keyboard);
 
     char* str = malloc(6);
     str[0] = 0x48;
@@ -43,10 +46,9 @@ void kmain()
     char* str2 = malloc(6);
     printf("%s | %s\n", str2, str);
 
-    init_paging();
+    init_acpi(); 
 
-    printf("Searching for ACPI signature.\n");
-    init_acpi();
+    init_paging();
 
     init_pci();
     pci_print_devices();
@@ -71,3 +73,9 @@ void kmain()
 
     for(;;);
 }
+
+void test_keyboard(struct key_t* key)
+{
+    printf("%c", key->ascii);
+}
+
