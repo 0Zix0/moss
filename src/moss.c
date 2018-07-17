@@ -1,5 +1,6 @@
 #include <moss.h>
 #include <vga.h>
+#include <shell.h>
 #include <gdt.h>
 #include <idt.h>
 #include <isrs.h>
@@ -13,8 +14,6 @@
 
 extern uint32_t kernel_end;
 extern uint32_t kernel_base;
-
-void test_keyboard();
 
 void kmain() 
 {
@@ -32,19 +31,6 @@ void kmain()
     init_irq();
     init_timer();
     init_keyboard();
-    keyboard_add_handler(0, test_keyboard);
-
-    char* str = malloc(6);
-    str[0] = 0x48;
-    str[1] = 0x65;
-    str[2] = 0x6c;
-    str[3] = 0x6c;
-    str[4] = 0x6f;
-    str[5] = '\0';
-    printf("%s\n", str);
-    //free(str);
-    char* str2 = malloc(6);
-    printf("%s | %s\n", str2, str);
 
     init_acpi(); 
 
@@ -53,11 +39,7 @@ void kmain()
     init_pci();
     pci_print_devices();
 
-    puts("Welcome to ");
-    set_color(VGA_GREEN, VGA_BLACK);
-    puts("Moss");
-    set_color(VGA_WHITE, VGA_BLACK);
-    puts(".\n");
+    shell_start();
 
     // Trigger a page fault.
     // uint32_t *ptr = (uint32_t *)0xA0000000;
@@ -73,9 +55,3 @@ void kmain()
 
     for(;;);
 }
-
-void test_keyboard(struct key_t* key)
-{
-    printf("%c", key->ascii);
-}
-

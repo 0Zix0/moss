@@ -20,6 +20,6 @@ uint8_t kbdus[128];
 uint8_t kbdus_mod[128];
 
 void init_keyboard();
-//void keyboard_add_handler(int id, void* handler);
+void keyboard_add_handler(int id, void* handler);
 
 #endif

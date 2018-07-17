@@ -89,3 +89,13 @@ void set_cursor_pos(int x, int y)
     cursor_x = x;
     cursor_y = y;
 }
+
+int get_cursor_x()
+{
+    return cursor_x;
+}
+
+int get_cursor_y()
+{
+    return cursor_y;
+}

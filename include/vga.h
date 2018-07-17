@@ -32,6 +32,9 @@ void enable_cursor();
 void disable_cursor();
 void set_cursor_pos(int x, int y);
 
+int get_cursor_x();
+int get_cursor_y();
+
 void printf(const char *fmt, ...);
 
 #endif

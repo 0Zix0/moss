@@ -46,6 +46,7 @@ build_c moss.c moss
 
 build_c drivers/vga.c vga
 build_c drivers/printf.c printf
+build_c drivers/shell.c shell
 build_c drivers/gdt.c gdt
 build_c drivers/idt.c idt
 build_c drivers/isrs.c isrs
@@ -69,7 +70,7 @@ echo Linking...
 
 link "moss string crash random vga printf ports gdt gdtload idt 
 idtload isrs isrstubs irq irqstubs timer keyboard paging malloc 
-pci acpi assert" kernel
+pci acpi assert shell" kernel
 
 echo Creating floppy image...
 
