@@ -19,13 +19,13 @@ void key_event(struct key_t* key)
             if(!strcmp(cmd, "cls"))
             {
                 cls();
+                set_cursor_pos(0, -1);
             } 
             else if(!strcmp(cmd, "crash"))
             {
                 // Trigger divide by 0.
-                int a = 10;
-                int b = 0;
-                int c = a / b;
+                int zero = 0;
+                int c = 10 / zero;
             } 
             else if(!strcmp(cmd, "pci"))
             {
