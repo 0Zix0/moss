@@ -23,6 +23,9 @@ void kmain()
     printf("Kernel base: %x\n", &kernel_base);
     printf("Kernel end: %x\n", &kernel_end);
 
+    uint8_t* b = (uint8_t*)0x0600;
+    printf("test: %x\n", b[0]);
+
     init_memory((uint32_t)&kernel_end);
 
     init_gdt();
@@ -39,7 +42,7 @@ void kmain()
     init_pci();
     pci_print_devices();
 
-    shell_start();
+    // shell_start();
 
     // Trigger a page fault.
     // uint32_t *ptr = (uint32_t *)0xA0000000;
